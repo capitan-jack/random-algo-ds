@@ -28,6 +28,7 @@ class Trie:
             if string[i] in root.links:
                 root = root.links[string[i]]
             else:
+                root.links[string[i]] = Node()
                 root = root.links[string[i]]
         root.entry = True
     
