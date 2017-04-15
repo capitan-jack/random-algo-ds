@@ -4,7 +4,7 @@ class Node:
         self.left = None
         self.right = None
 
-'''to support level order traversal to insert level wise left to right'''       
+'''to support level order traversal'''     
 class Queue:
     def __init__(self):
         self.data = []
@@ -80,3 +80,26 @@ class Tree:
         return node1.data == node2.data and\
     self._is_mirror(node1.left, node2.right) and\
     self._is_mirror(node1.right, node2.left)
+
+    def count_max_distinct_nodes_in_path(self):
+        return self._c_m_d_n_p(self.root, set())
+        
+    def _c_m_d_n_p(self, root, tot_found):
+        if root == None:
+            return len(tot_found)
+        tot_found.add(root.data)
+        return max(self._c_m_d_n_p(root.left, set(tot_found)), self._c_m_d_n_p(root.right, set(tot_found)))
+
+    
+tree_data = list(map(int, input().strip().split(' ')))
+tree = Tree()
+for i in range(len(tree_data)):
+    tree.insert_level_wise(tree_data[i])
+    
+tree.traverse_in_order()
+tree.mirror_tree()
+print()
+tree.traverse_in_order()
+print()
+print(tree.is_mirror())
+print(tree.count_max_distinct_nodes_in_path())
